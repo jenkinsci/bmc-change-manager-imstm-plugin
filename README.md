@@ -1,5 +1,5 @@
 # DevOps for BMC AMI Change Manager for IMS TM
-[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-cfa.svg)](https://plugins.jenkins.io/bmc-cfa)
+[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-cfa-plugin.svg)](https://plugins.jenkins.io/bmc-cfa-plugin)
 # Table of contents
 1. [Requirements](#req)
 2. [Overview](#overview)
