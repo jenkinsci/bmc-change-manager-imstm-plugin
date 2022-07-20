@@ -77,7 +77,7 @@ The contents of the Change Manager for IMS TM job spool files are available in J
 ## Required information for diagnosing problems <a name="diag"></a>
 1.	Identify **plugin version**:
       **Jenkins**->**Manage Jenkins**->**Manage Plugins**->**Installed**
-      ![BMC plugin version](/src/main/webapp/images/plugin_version.JPG)
+      ![BMC plugin version](/src/main/webapp/images/plugin_version.jpg)
 2.	**Jenkins Job logs**  
       * Navigate to  **C:\Users\\*user_name*\\AppData\Local\Jenkins\.jenkins**
       * Select **jobs** directory
