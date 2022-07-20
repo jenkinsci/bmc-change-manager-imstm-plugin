@@ -1,5 +1,5 @@
 # DevOps for BMC AMI Change Manager for IMS TM
-[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-cfa-plugin.svg)](https://plugins.jenkins.io/bmc-cfa-plugin)
+[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-change-manager-imstm-plugin.svg)](https://plugins.jenkins.io/bmc-change-manager-imstm-plugin)
 # Table of contents
 1. [Requirements](#req)
 2. [Overview](#overview)
@@ -11,7 +11,7 @@
 ## Requirements <a name="req"></a>
 | Required software                 | Version |
 |-----------------------------------|---------|
-| Jenkins                           | 2.349   |
+| Jenkins                           | 2.346.2   |
 | BMC AMI Change Manager for IMS TM | 3.0     |
 | z/OSMF                            |    |
 
@@ -45,8 +45,8 @@ It uses z/OSMF REST API to submit jobs to run on z/OS.
 
   An administrator will have to approve via Manage Jenkins -> In-process Script Approval
 
-![ In-process Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/master/src/main/webapp/images/In_process_script_approv.JPG)
-![ Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/master/src/main/webapp/images/ScriptApproval.JPG)
+![ In-process Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/In_process_script_approv.JPG)
+![ Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/ScriptApproval.JPG)
 
 
 ## Authenticating the SSL Certificate <a name="cert"></a>
@@ -77,7 +77,7 @@ The contents of the Change Manager for IMS TM job spool files are available in J
 ## Required information for diagnosing problems <a name="diag"></a>
 1.	Identify **plugin version**:
       **Jenkins**->**Manage Jenkins**->**Manage Plugins**->**Installed**
-      ![BMC plugin version](https://github.com/jenkinsci/bmc-cfa-plugin/blob/master/src/main/webapp/images/plugin_version.JPG)
+      ![BMC plugin version](/src/main/webapp/images/plugin_version.JPG)
 2.	**Jenkins Job logs**  
       * Navigate to  **C:\Users\\*user_name*\\AppData\Local\Jenkins\.jenkins**
       * Select **jobs** directory

@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.32</version>
+        <version>4.43.1</version>
         <relativePath />
     </parent>
     <groupId>com.bmc.ims</groupId>
@@ -16,8 +16,8 @@
         <!-- changelist>-SNAPSHOT</changelist-->
         <!--jenkins.version>2.277.1</jenkins.version-->
 		<changelist>999999-SNAPSHOT</changelist>
-		<jenkins.version>2.349</jenkins.version>
-        <java.level>8</java.level>
+		<jenkins.version>2.346.2</jenkins.version>
+        <java.level>11</java.level>
 		<gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
             </properties>
     <name>BMC DevOps for AMI Change Manager for IMS TM Plugin</name>
@@ -88,121 +88,18 @@
 			<version>1.23</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jenkins-ci.main</groupId>
+			<artifactId>jenkins-test-harness</artifactId>
+			<version>1802.v9de0d87365d2</version>
+		</dependency>
+
+
     </dependencies>
     <build>
     	<pluginManagement>
     		<plugins>
-    			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    			<plugin>
-    				<groupId>org.eclipse.m2e</groupId>
-    				<artifactId>lifecycle-mapping</artifactId>
-    				<version>1.0.0</version>
-    				<configuration>
-    					<lifecycleMappingMetadata>
-    						<pluginExecutions>
-    							<pluginExecution>
-    								<pluginExecutionFilter>
-    									<groupId>
-    										org.jenkins-ci.tools
-    									</groupId>
-    									<artifactId>
-    										maven-hpi-plugin
-    									</artifactId>
-    									<versionRange>
-    										[3.17,)
-    									</versionRange>
-    									<goals>
-    										<goal>validate</goal>
-    										<goal>insert-test</goal>
-    										<goal>validate-hpi</goal>
-    										<goal>test-hpl</goal>
-    										<goal>
-    											resolve-test-dependencies
-    										</goal>
-    									</goals>
-    								</pluginExecutionFilter>
-    								<action>
-    									<ignore></ignore>
-    								</action>
-    							</pluginExecution>
-    							<pluginExecution>
-    								<pluginExecutionFilter>
-    									<groupId>
-    										org.codehaus.gmavenplus
-    									</groupId>
-    									<artifactId>
-    										gmavenplus-plugin
-    									</artifactId>
-    									<versionRange>
-    										[1.12.1,)
-    									</versionRange>
-    									<goals>
-    										<goal>addTestSources</goal>
-    									</goals>
-    								</pluginExecutionFilter>
-    								<action>
-    									<ignore></ignore>
-    								</action>
-    							</pluginExecution>
-    							<pluginExecution>
-    								<pluginExecutionFilter>
-    									<groupId>
-    										org.apache.maven.plugins
-    									</groupId>
-    									<artifactId>
-    										maven-antrun-plugin
-    									</artifactId>
-    									<versionRange>
-    										[3.0.0,)
-    									</versionRange>
-    									<goals>
-    										<goal>run</goal>
-    									</goals>
-    								</pluginExecutionFilter>
-    								<action>
-    									<ignore></ignore>
-    								</action>
-    							</pluginExecution>
-    							<pluginExecution>
-    								<pluginExecutionFilter>
-    									<groupId>
-    										org.jvnet.localizer
-    									</groupId>
-    									<artifactId>
-    										localizer-maven-plugin
-    									</artifactId>
-    									<versionRange>
-    										[1.31,)
-    									</versionRange>
-    									<goals>
-    										<goal>generate</goal>
-    									</goals>
-    								</pluginExecutionFilter>
-    								<action>
-    									<ignore></ignore>
-    								</action>
-    							</pluginExecution>
-    							<pluginExecution>
-    								<pluginExecutionFilter>
-    									<groupId>org.kohsuke</groupId>
-    									<artifactId>
-    										access-modifier-checker
-    									</artifactId>
-    									<versionRange>
-    										[1.21,)
-    									</versionRange>
-    									<goals>
-    										<goal>enforce</goal>
-    									</goals>
-    								</pluginExecutionFilter>
-    								<action>
-    									<ignore></ignore>
-    								</action>
-    							</pluginExecution>
-    						</pluginExecutions>
-    					</lifecycleMappingMetadata>
-    				</configuration>
-    			</plugin>
+
     			
     			 <plugin>
 

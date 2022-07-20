@@ -1206,6 +1206,9 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			if (tempValue.isEmpty())
 				result = FormValidation.error("A name is required for this element!");
 
+			else if(value.length()>8)
+				result = FormValidation.warning("Element name should be 1-8 characters");
+
 			return result;
 		}
 
@@ -1494,6 +1497,10 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			return result;
 
 		}
+
+
+
+
 
 		//doFill{fieldname}Items		
 		
