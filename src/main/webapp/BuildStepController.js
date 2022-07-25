@@ -128,6 +128,7 @@
    	        s = s.up();
 
    	    // find the beginning of the rowvg
+   	    /*
    	    var vg =s;
    	    while (!vg.hasClassName("rowvg-start"))
    	        vg = vg.next();
@@ -135,7 +136,7 @@
    	    var checked = xor(c.checked,Element.hasClassName(c,"negative"));
 
    	    vg.rowVisibilityGroup.makeInnerVisible(checked);
-
+*/
    	   /*
    	    if(checked && scroll) {
    	        var D = YAHOO.util.Dom;
@@ -150,7 +151,7 @@
    	        // Hack to hide tool home when "Install automatically" is checked.
    	        var homeField = findPreviousFormItem(c, 'home');
    	        if (homeField != null && homeField.value == '') {
-   	            var tr = findAncestor(homeField, 'TR');
+   	            var tr = findAncestor(homeField, 'TR')|| findAncestorClass(homeField, 'tr');
    	            if (tr != null) {
    	                tr.style.display = c.checked ? 'none' : '';
    	                layoutUpdateCallback.call();
@@ -640,16 +641,22 @@
 	  									optBlock.style.display = "block"
 	  										
 	  									// Display checkbox for optional operand
-	  									if(op.optional==true)					  					
+	  									if(op.optional==true)
+	  									{
 	  										//inp.parentNode.parentNode.parentNode.parentNode.firstChild.firstChild.style.display="initial";
-	  										optBlock.firstChild.firstChild.firstChild.style.display="initial";
-	  										
+	  										//optBlock.firstChild.firstChild.firstChild.style.display="initial";
+	  										isolateCboxFromSpan(optBlock).disabled=false;
+	  										//isolateCboxFromSpan(optBlock).checked=false;
+	  									}
 				  		  				
 	  									// Hide checkbox for required operand and display the expandable hidden part
 				  		  				else if(op.optional==false)
 				  		  				{
 				  		  				    if(sectionClassName=="jenkins-section")
-                                                isolateCboxFromSpan(optBlock).disabled="true";
+				  		  				    {
+                                                isolateCboxFromSpan(optBlock).disabled=true;
+                                                isolateCboxFromSpan(optBlock).checked=false;
+                                             }
                                             else
 					  		  				    optBlock.firstChild.firstChild.firstChild.style.display="none";
 				  		  					formContainer.style.display="block";
@@ -699,14 +706,19 @@
 	  									// Display checkbox for optional operand
 	  									if(op.optional==true)
 	  									{
-	  										optBlock.firstChild.firstChild.firstChild.style.display="initial";
+	  										//optBlock.firstChild.firstChild.firstChild.style.display="initial";
+	  										isolateCboxFromSpan(optBlock).disabled=false;
+	  										//isolateCboxFromSpan(optBlock).checked=false;
 	  									}
 	  									
 	  									// Hide checkbox for required operand and display the expandable hidden part
 				  		  				else if(op.optional==false)
 				  		  				{
 				  		  					if(sectionClassName=="jenkins-section")
-				  		  					    isolateCboxFromSpan(optBlock).disabled="true";
+				  		  					{
+				  		  					    isolateCboxFromSpan(optBlock).disabled=true;
+				  		  					    isolateCboxFromSpan(optBlock).checked=false;
+				  		  					    }
 				  		  					else
 				  		  					    optBlock.firstChild.firstChild.firstChild.style.display="none";
 
