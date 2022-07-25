@@ -1,5 +1,5 @@
 # DevOps for BMC AMI Change Manager for IMS TM
-[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-change-manager-imstm-plugin.svg)](https://plugins.jenkins.io/bmc-change-manager-imstm-plugin)
+[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-change-manager-imstm.svg)](https://plugins.jenkins.io/bmc-change-manager-imstm)
 # Table of contents
 1. [Requirements](#req)
 2. [Overview](#overview)
