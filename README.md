@@ -29,8 +29,6 @@ The plugin uses z/OSMF REST API to submit the following jobs to run on z/OS.
 - DLPBTSCT - Utility that is used to check or execute DELTA List in batch. BMCXLINK task is not required.
 - DLPYLIST - Sample user exit to create DELTA List records in batch using control cards.
 
-It uses z/OSMF REST API to submit jobs to run on z/OS.
-
 **Notes!**
 
 - Notice that the values for the different keywords are not explicitly displayed in the generated JCL.
