@@ -576,7 +576,7 @@
 								      </f:entry>
 								    </f:optionalBlock>								  
 
-									<f:optionalBlock name="bmcL61" field="bmcL61" checked="${e.isBmcL61()}" title="L61" inline="true"  help="/descriptor/com.bmc.ims.BmcDlpBuilder/help/obl61">
+									<f:optionalBlock name="bmcL61" field="bmcL61" checked="${e.isBmcL61()}" title="LU 6.1" inline="true"  help="/descriptor/com.bmc.ims.BmcDlpBuilder/help/obl61">
 
 								      <f:entry field="l61">
 								       	<f:select clazz="l61" name="l61" value="${e.l61}" onfocus="this.oldvalue = this.value;" onchange="toggleOptionalOperands(this,${stepid})"  >	</f:select>

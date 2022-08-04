@@ -1214,15 +1214,16 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 
 		@POST
-		public FormValidation doCheckPsb(@QueryParameter String value)
+		public FormValidation doCheckPsb(@QueryParameter String value , @QueryParameter String action)
 		{
 			FormValidation result = null;
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
 			String tempValue = StringUtils.trimToEmpty(value);
-			if (tempValue.isEmpty())
-				result = FormValidation.error("PSB name is required!");
+			if(action.contains("ADD") || action.contains("ADDREV"))
+				if (tempValue.isEmpty())
+					result = FormValidation.error("PSB name is required!");
 
 			return result;
 		}
@@ -1242,6 +1243,32 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			}
 			return result;
 		}
+		@POST
+		public FormValidation doCheckBmcRldAreas(@QueryParameter boolean value, @QueryParameter boolean  bmcAuto, @QueryParameter boolean  bmcRand,
+												 @QueryParameter boolean  bmcRandOnly, @QueryParameter boolean bmcIoVfExt) {
+
+			FormValidation result = null;
+
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			if(value==true && (bmcAuto==true || bmcRand==true || bmcRandOnly==true || bmcIoVfExt==true ) )
+				result = FormValidation.error("If RLDAREAS is specified then no other field (except for RELGSAM and COPYACB) can be specified.");
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckBmcIoVfExt(@QueryParameter boolean value, @QueryParameter boolean  bmcAuto, @QueryParameter boolean  bmcRand,
+												 @QueryParameter boolean  bmcRandOnly, @QueryParameter boolean bmcRldAreas) {
+
+			FormValidation result = null;
+
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			if(value==true && (bmcAuto==true || bmcRand==true || bmcRandOnly==true || bmcRldAreas==true ) )
+				result = FormValidation.error("If IOVFEXT is specified then no other field (except for RELGSAM and COPYACB) can be specified.");
+			return result;
+		}
+
 
 		@POST
 		public FormValidation doCheckTy(@QueryParameter String value, @QueryParameter String appfp) {
@@ -1263,7 +1290,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			if( value.equals("PARALLEL") || ( dyn.equals("Y")  && dyn.equals("DOPT")))
+			if( value.equals("PARALLEL") && ( dyn.equals("Y")  || dyn.equals("DOPT")))
 				result = FormValidation.warning("SCHD="+value +" and DYN=" + dyn + " are mutually exclusive");
 
 			return result;
@@ -1414,7 +1441,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 		}
 
 		@POST
-		public FormValidation doCheckTranfp(@QueryParameter String value, @QueryParameter String mseg, @QueryParameter String recv, @QueryParameter String resp, @QueryParameter String spad, @QueryParameter boolean bmcSpad)
+		public FormValidation doCheckTranfp(@QueryParameter String value, @QueryParameter String mseg, @QueryParameter String recv, @QueryParameter String resp, @QueryParameter String spad, @QueryParameter boolean bmcSpad, @QueryParameter boolean bmcEmhs)
  {
 
 			FormValidation result = null;
@@ -1432,6 +1459,9 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 				if( spad.equals("STRUNC") && bmcSpad==true)
 					result=FormValidation.warning("FP=Y and SPAD=STRUNC are mutually exclusive" );
 			}
+			else if ( value.equals("N"))
+				if (bmcEmhs==true)
+					result=FormValidation.warning("FP(N) and EMHS>0 are mutually exclusive");
 			return result;
 		}
 
@@ -1444,6 +1474,19 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			if(wfi.equals("Y") && value.equals("MULT"))
 				result=FormValidation.warning("MPER=MULT and WFI=Y are mutually exclusive");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckBmcRandOnly(@QueryParameter boolean value) {
+
+			FormValidation result = null;
+
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			if(value==true)
+				result=FormValidation.ok("If RANDONLY is specified then no other field can be specified.");
 
 			return result;
 		}
@@ -1486,21 +1529,250 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			//String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = StringUtils.trimToEmpty(value);
 
-			if(bmcEmhs==true) {
+			if(bmcEmhs==true)
 				if (tranfp.equals("N"))
-					result = FormValidation.warning("FP(N) and EMHS>0 are mutually exclusive");
+					result = FormValidation.warning("EMHS>0 and FP(N) are mutually exclusive");
+			else if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<12 || Integer.parseInt(value)>30720)
+					result = FormValidation.error("Valid range between 12-30,720");
 
-
-			}
 			return result;
 
 		}
 
+		@POST
+		public FormValidation doCheckNpri(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>14)
+					result = FormValidation.error("Valid range between 0-14");
+
+			return result;
+		}
+
+
+		@POST
+		public FormValidation doCheckLpri(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>14)
+					result = FormValidation.error("Valid range between 0-14");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckLco(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 1-65,535");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckPlc(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 0-65,535");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckTime(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 1- 65,535");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckPara(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+			try {
+				if (tempValue.toUpperCase().equals("NONE"))
+					return result;
+				else if (!tempValue.isEmpty())
+					if (Integer.parseInt(value) < 0 || Integer.parseInt(value) > 32767)
+						result = FormValidation.error("Valid range between 0-32,767");
+			}
+			catch(NumberFormatException ex)
+			{
+				result= FormValidation.error("Valid range between 0-32,767");
+				return result;
+			}
+			return result;
+		}
+		@POST
+		public FormValidation doCheckCl(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>999)
+					result = FormValidation.error("Valid range between 1-999");
+
+			return result;
+		}
+		@POST
+		public FormValidation doCheckUschd(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>4)
+					result = FormValidation.error("Valid range between 1-4");
+
+			return result;
+		}
+		@POST
+		public FormValidation doCheckSegs(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 0-65,535");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckOseg(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 0-65,535");
+
+			return result;
+		}
 
 
 
+		@POST
+		public FormValidation doCheckLsid(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>2036)
+					result = FormValidation.error("Valid range between 1-2036");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckRsid(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>2036)
+					result = FormValidation.error("Valid range between 1-2036");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckSpa(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<16 || Integer.parseInt(value)>32767)
+					result = FormValidation.error("Valid range between 16-32,767");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckMreg(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>255)
+					result = FormValidation.error("Valid range between 0-255");
+
+			return result;
+		}
+
+		@POST
+		public FormValidation doCheckExptm(@QueryParameter String value)
+		{
+			FormValidation result = null;
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			String tempValue = StringUtils.trimToEmpty(value);
+
+			if (! tempValue.isEmpty())
+				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
+					result = FormValidation.error("Valid range between 0-65,535");
+
+			return result;
+		}
 
 		//doFill{fieldname}Items		
 		

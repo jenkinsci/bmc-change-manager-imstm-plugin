@@ -1156,6 +1156,7 @@
 			if(selectedData=="EXECUTE")
 			{
 				//display the RELOAD value in the Action select box, incase it was previously hidden
+				/*
 				for(option of document.getElementsByName("action")[i].children)
 				{					
 					if(option.value=="RELOAD")
@@ -1164,7 +1165,7 @@
 						break;
 					}					
 				}				
-				
+				*/
 				for( var c of current.getElementsByClassName("jenkins-form-label help-sibling") )
 				{
 					if(c.innerText.includes("Element name") || c.innerText.includes("Element type") || c.innerText.includes("Delta list operands"))
@@ -1226,9 +1227,10 @@
 					current.getElementsByClassName("jenkins-section")[0].style.display="block";
 				else
 					current.getElementsByClassName("jenkins-section")[0].style.display="none";
-				for( var c of current.getElementsByClassName("setting-name") )	
+
+				for( var c of current.getElementsByClassName("jenkins-form-label") )
 				{
-					if( c.innerHTML=="IMS COMMAND")	   	
+					if( c.innerHTML.includes("IMS COMMAND") )
 			   			c.parentNode.style.display = "none";
 			   		else if(c.innerHTML=="Element name" ||  c.innerHTML=="Element type" )	
 			   			c.parentNode.style.display = "block";
@@ -1338,6 +1340,7 @@
 	  		}
 	  		
 	  		//if a checkbox triggered the function	
+	  	/*
 	  		if(obj.tagName=="INPUT" && obj.checked==true)
 	  		{
 	  			if(checkMutuallyExclusive(obj,action,elementType,currentChunk))
@@ -1346,8 +1349,8 @@
 	  					return;
 		  			}
 		  			checkDependency(obj,action,elementType,c);
-		  		
 	  		}
+
 	  		//if a select onchange triggered the function
 	  		else if(obj.tagName=="SELECT")
 	  		{	  			
@@ -1357,9 +1360,9 @@
 	  				obj.value=obj.oldvalue;
   					return;
 	  			}
-	  			checkDependency(getOptBlckCheckbox(getOptionalBlockContainer(obj)),action,elementType,currentChunk);	
+	  			checkDependency(getOptBlckCheckbox(getOptionalBlockContainer(obj)),action,elementType,currentChunk);
 	  		}		  		
-	  
+	  */
 	  		//When a new item/build step is being added/configured no need to populate the JCL, just read it from the config.xml
 	  		if(updateOptionalBlockCounter>=totalNumOfoperands)
 	  		{
