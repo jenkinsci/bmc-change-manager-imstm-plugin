@@ -1242,6 +1242,8 @@
 					if(option.value!="APPLCTN" && option.value!="DATABASE" )
 						option.style.display="none";
 				}
+
+				document.getElementsByName("elementName")[i].parentNode.parentNode.style.display="block";
 				
 				displayRelevantOperands(selectedAction,selectedElementType,current,stepid);	
 			}
