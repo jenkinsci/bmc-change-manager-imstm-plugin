@@ -17,6 +17,7 @@
 
 ## Overview <a name="overview"></a>
 BMC AMI DevOps for Change Manager for IMS TM plugin can be invoked as a Jenkins job's **build step**. It allows assimilation of BMC AMI Change Manager for IMS TM capabilities in Dev/Ops processes. It takes advantage of BMC AMI Change Manager for IMS TM functionality to dynamically activate changes to IMS objects.
+
 ![BMC build step](/src/main/webapp/images/bmc_build_step.jpg)
 
 It provides the following capabilities:
