@@ -20,7 +20,7 @@
         <java.level>11</java.level>
 		<gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
             </properties>
-    <name>BMC DevOps for AMI Change Manager for IMS TM Plugin</name>
+    <name>BMC AMI DevOps for Change Manager for IMS TM</name>
     <description>BMC DevOps for AMI Change Manager for IMS TM provides the capability of manipulating IMS resources online.</description>
 
 	<licenses>

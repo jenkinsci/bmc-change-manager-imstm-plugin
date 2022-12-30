@@ -1033,7 +1033,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 		@Override
 		public String getDisplayName() {
 			// TODO Auto-generated method stub
-			return "BMC DevOps for BMC AMI Change Manager for IMS TM";
+			return "BMC AMI DevOps for Change Manager for IMS TM";
 
 		}
 
