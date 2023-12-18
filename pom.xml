@@ -88,13 +88,6 @@
 			<version>1.23</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jenkins-ci.main</groupId>
-			<artifactId>jenkins-test-harness</artifactId>
-			<version>1802.v9de0d87365d2</version>
-		</dependency>
-
-
     </dependencies>
     <build>
     	<pluginManagement>
