@@ -17,7 +17,6 @@
         <!--jenkins.version>2.277.1</jenkins.version-->
 		<changelist>999999-SNAPSHOT</changelist>
 		<jenkins.version>2.346.2</jenkins.version>
-        <java.level>11</java.level>
 		<gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
             </properties>
     <name>BMC AMI DevOps for Change Manager for IMS TM</name>
