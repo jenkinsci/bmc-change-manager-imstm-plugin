@@ -17,8 +17,8 @@
         <!--jenkins.version>2.277.1</jenkins.version-->
 		<changelist>999999-SNAPSHOT</changelist>
 		<!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
-		<jenkins.baseline>2.528</jenkins.baseline>
-		<jenkins.version>${jenkins.baseline}.2</jenkins.version>
+		<jenkins.baseline>2.516</jenkins.baseline>
+		<jenkins.version>${jenkins.baseline}.3</jenkins.version>
 		<gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
             </properties>
     <name>BMC AMI DevOps for Change Manager for IMS TM</name>
