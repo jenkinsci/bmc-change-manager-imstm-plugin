@@ -1,5 +1,8 @@
 package com.bmc.ims;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import hudson.AbortException;
 import hudson.model.TaskListener;
 
@@ -10,10 +13,10 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
-import org.json.JSONObject;
-import org.json.JSONArray;
 import java.nio.charset.Charset;
 
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
 public class JCLService implements Serializable {
 	private String encodedCredentials = null;
@@ -278,6 +281,7 @@ public class JCLService implements Serializable {
 							if (debug) {
 								listener.getLogger().println("Response from Job Submission:\n" + sb.toString());
 							}
+                            /*
 							JSONObject resp = new JSONObject(sb.toString());
 							rc.jobId = resp.getString("jobid");
 							rc.jobName = resp.getString("jobname");
@@ -285,6 +289,15 @@ public class JCLService implements Serializable {
 							rc.jobStatus=resp.getString("status");
 //							rc.jobType = resp.getString("type");
 //							rc.numOfSpoolFiles= String.valueOf(resp.length());
+
+                             */
+                            Gson gson = new Gson();
+
+                            JsonObject resp =gson.fromJson(sb.toString(), JsonObject.class);
+
+                            rc.jobId = resp.get("jobid").getAsString();
+                            rc.jobName = resp.get("jobname").getAsString();
+                            rc.jobStatus=resp.get("status").getAsString();
 						}
 					} catch (IOException ioex) {
 						listener.getLogger().println("JCLServices: IO Error occured while reading response data");
@@ -321,13 +334,19 @@ public class JCLService implements Serializable {
 								response.append("\n");
 							}
 							in.close();
-							JSONObject resp = new JSONObject(response.toString());
-							rc.jobName = resp.getString("jobname");
-							rc.jobId = resp.getString("jobid");
+							//JSONObject resp = new JSONObject(response.toString());
+                            JsonObject resp = JsonParser.parseString(response.toString()).getAsJsonObject();
+                            //rc.jobName = resp.getString("jobname");
+							//rc.jobId = resp.getString("jobid");
+                            rc.jobName = resp.get("jobname").getAsString();
+                            rc.jobId = resp.get("jobid").getAsString();
+
 	//						rc.jobOwner = resp.getString("owner");
-							rc.jobStatus = resp.getString("status");
+							//rc.jobStatus = resp.getString("status");
+                            rc.jobStatus = resp.get("status").getAsString();
 	//						rc.jobType = resp.getString("type");
-							if (resp.getString("status").equals("OUTPUT")) {
+	//						if (resp.getString("status").equals("OUTPUT")) {
+                            if (resp.get("status").getAsString().equals("OUTPUT")) {
 	//							rc.jobRetCode = resp.getString("retcode");
 								if (debug)
 									listener.getLogger().println("Response from Job Status:\n " + response.toString());
@@ -383,15 +402,20 @@ public class JCLService implements Serializable {
 								response.append("\n");
 							}
 							in.close();
-							JSONArray resp = new JSONArray(response.toString());
-							JSONObject singleSpoolFile;
-//							rc.numOfSpoolFiles = String.valueOf(resp.length());
-							for (int i = 0; i < resp.length(); i++) {
-								singleSpoolFile = resp.getJSONObject(i);
-								rc.idvalarr.add(String.valueOf(singleSpoolFile.getInt("id")));
-								rc.ddnamevalarr.add(singleSpoolFile.getString("ddname"));
-							}
+							//JSONArray resp = new JSONArray(response.toString());
+							//JSONObject singleSpoolFile;
+                            Gson gson = new Gson();
 
+                            // Define the type of the target List
+                            Type listType = new TypeToken<List<spoolObj>>() {}.getType();
+
+                            // Convert the JSON array string to a List of MyObject
+                            List<spoolObj> myObjectList = gson.fromJson(response.toString(), listType);
+
+                            for (spoolObj obj : myObjectList) {
+                                rc.ddnamevalarr.add(obj.ddname);
+                                rc.idvalarr.add(obj.id);
+                            }
 						}
 					} else {
 						if (debug)
@@ -573,7 +597,16 @@ public class JCLService implements Serializable {
 		}
 	}
 
-	
+}
 
+class spoolObj {
+    String id;
+    String ddname;
+
+    // Constructors, getters, and setters
+    private spoolObj(String id, String ddname) {
+        this.id = id;
+        this.ddname = ddname;
+    }
 }
 
