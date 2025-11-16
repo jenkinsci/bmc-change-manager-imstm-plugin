@@ -118,46 +118,38 @@
    	
    	
    	var origUpdateOptionalBlock = window.updateOptionalBlock;
-   	window.updateOptionalBlock = function(c,scroll) {
-   	 //	origUpdateOptionalBlock(c,scroll); 	//  original function 	
-   	//override the original function because a bug in the scrollIntoView function scrolls to the bottom of the build step
+   	window.updateOptionalBlock = function(c) {
+   	 //	origUpdateOptionalBlock(c); 	//  original function
+   	//override the original function
    	 // find the start TR
    		
-   	    var s = $(c);
-   	    while(!s.hasClassName("optional-block-start"))
-   	        s = s.up();
+   	    // find the start TR
+         var s = c;
+         while (!s.classList.contains("optional-block-start")) {
+           s = s.parentNode;
+         }
 
-   	    // find the beginning of the rowvg
-   	    /*
-   	    var vg =s;
-   	    while (!vg.hasClassName("rowvg-start"))
-   	        vg = vg.next();
+         // find the beginning of the rowvg
+         var vg = s;
+         while (!vg.classList.contains("rowvg-start")) {
+           vg = vg.nextElementSibling;
+         }
 
-   	    var checked = xor(c.checked,Element.hasClassName(c,"negative"));
+         var checked = xor(c.checked, c.classList.contains("negative"));
 
-   	    vg.rowVisibilityGroup.makeInnerVisible(checked);
-*/
-   	   /*
-   	    if(checked && scroll) {
-   	        var D = YAHOO.util.Dom;
+         vg.rowVisibilityGroup.makeInnerVisible(checked);
 
-   	        var r = D.getRegion(s);
-   	        r = r.union(D.getRegion(vg.rowVisibilityGroup.end));
-   	        scrollIntoView(r);
-   	    }
-   	    */
-
-   	    if (c.name == 'hudson-tools-InstallSourceProperty') {
-   	        // Hack to hide tool home when "Install automatically" is checked.
-   	        var homeField = findPreviousFormItem(c, 'home');
-   	        if (homeField != null && homeField.value == '') {
-   	            var tr = findAncestor(homeField, 'TR')|| findAncestorClass(homeField, 'tr');
-   	            if (tr != null) {
-   	                tr.style.display = c.checked ? 'none' : '';
-   	                layoutUpdateCallback.call();
-   	            }
-   	        }
-   	    }
+         if (c.name == "hudson-tools-InstallSourceProperty") {
+           // Hack to hide tool home when "Install automatically" is checked.
+           var homeField = findPreviousFormItem(c, "home");
+           if (homeField != null && homeField.value == "") {
+             const formItem = homeField.closest(".jenkins-form-item");
+             if (formItem != null) {
+               formItem.style.display = c.checked ? "none" : "";
+               layoutUpdateCallback.call();
+             }
+           }
+         }
    		//new code applies only to optionalBlocks that were added by BMC plugin
    		if(c.name.substring(0,3)=="bmc")
    		{
