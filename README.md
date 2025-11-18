@@ -11,9 +11,9 @@
 ## Requirements <a name="req"></a>
 | Required software                 | Version |
 |-----------------------------------|---------|
-| Jenkins                           | 2.346.2   |
+| Jenkins                           | 5.28    |
 | BMC AMI Change Manager for IMS TM | 3.0     |
-| z/OSMF                            |    |
+| z/OSMF                            |         |
 
 ## Overview <a name="overview"></a>
 BMC AMI DevOps for Change Manager for IMS TM plugin can be invoked as a Jenkins job's **build step**. It allows assimilation of BMC AMI Change Manager for IMS TM capabilities in Dev/Ops processes. It takes advantage of BMC AMI Change Manager for IMS TM functionality to dynamically activate changes to IMS objects.

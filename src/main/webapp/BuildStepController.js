@@ -312,13 +312,13 @@
    		   				
    		   				// Hide IMS Command
    		   				if(currentAction=="EXECUTE")
-   		   					currentChunk.getElementsByClassName('setting-name')[3].parentNode.style.display="block";
+   		   					currentChunk.getElementsByClassName('setting-name')[4].parentNode.style.display="block";
    		   				else
    		   				{
    		   				    if(sectionClassName=="jenkins-section")
-   		   				        currentChunk.children[3].style.display="none";
+   		   				        currentChunk.children[4].style.display="none";
    		   				    else
-   		   					    currentChunk.getElementsByClassName('setting-name')[3].parentNode.style.display="none";
+   		   					    currentChunk.getElementsByClassName('setting-name')[4].parentNode.style.display="none";
    		   				}
    		   				displayRelevantOperands(currentAction,currentElementType,currentChunk,curStepid);
    		   			}
