@@ -8,7 +8,6 @@ import java.util.Properties;
 import hudson.util.FormValidation;
 import hudson.util.Secret;
 import jenkins.model.Jenkins;
-import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -30,6 +29,7 @@ import jenkins.tasks.SimpleBuildStep;
 import org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript;
 import org.jenkinsci.plugins.scriptsecurity.scripts.ApprovalContext;
 import org.kohsuke.stapler.verb.POST;
+import hudson.Util;
 
 @Extension // annotation is required when writing a pipeline compatible plugin
 public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializable {
@@ -1105,7 +1105,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Password is required!");
 
@@ -1119,7 +1119,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Required field!");
 
@@ -1133,7 +1133,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Required field!");
 
@@ -1147,7 +1147,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Required field!");
 
@@ -1161,7 +1161,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Required field!");
 
@@ -1175,7 +1175,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Required field!");
 
@@ -1189,7 +1189,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("Load library is rerquired!");
 
@@ -1202,7 +1202,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if (tempValue.isEmpty())
 				result = FormValidation.error("A name is required for this element!");
 
@@ -1220,7 +1220,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			if(action.contains("ADD") || action.contains("ADDREV"))
 				if (tempValue.isEmpty())
 					result = FormValidation.error("PSB name is required!");
@@ -1529,7 +1529,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if(bmcEmhs==true)
 				if (tranfp.equals("N"))
@@ -1548,7 +1548,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>14)
@@ -1564,7 +1564,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>14)
@@ -1579,7 +1579,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>65535)
@@ -1594,7 +1594,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
@@ -1609,7 +1609,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>65535)
@@ -1624,7 +1624,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 			try {
 				if (tempValue.toUpperCase().equals("NONE"))
 					return result;
@@ -1645,7 +1645,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>999)
@@ -1659,7 +1659,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>4)
@@ -1673,7 +1673,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
@@ -1688,7 +1688,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
@@ -1705,7 +1705,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>2036)
@@ -1720,7 +1720,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<1 || Integer.parseInt(value)>2036)
@@ -1735,7 +1735,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<16 || Integer.parseInt(value)>32767)
@@ -1750,7 +1750,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>255)
@@ -1765,7 +1765,7 @@ public class BmcDlpBuilder extends Builder implements SimpleBuildStep, Serializa
 			FormValidation result = null;
 			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
-			String tempValue = StringUtils.trimToEmpty(value);
+			String tempValue = Util.fixNull(value).trim();
 
 			if (! tempValue.isEmpty())
 				if(Integer.parseInt(value)<0 || Integer.parseInt(value)>65535)
